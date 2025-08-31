@@ -1,0 +1,140 @@
+# ChatManager — конфигурация
+
+default-channel: global
+
+channels:
+  global:
+    name: "Global"
+    trigger: "!"
+    permission:
+      send: "chat.channel.global.send"
+      receive: "chat.channel.global.receive"
+    range: -1
+    slowmode:
+      seconds: 0                  # 0 = выключено
+      bypass-permission: "chat.slowmode.bypass"   # можно переопределить по каналу
+    format: "<gray>[<green><channel></green>]</gray> <prefix><displayname><suffix><gray>: </gray><message>"
+
+  local:
+    name: "Local"
+    trigger: "#"
+    permission:
+      send: "chat.channel.local.send"
+      receive: "chat.channel.local.receive"
+    range: 100
+    slowmode:
+      seconds: 3
+      bypass-permission: "chat.slowmode.bypass"
+    format: "<gray>[<yellow><channel></yellow>]</gray> <prefix><displayname><suffix><gray>: </gray><message>"
+
+  admin:
+    name: "Admin"
+    trigger: "@"
+    permission:
+      send: "chat.channel.admin.send"
+      receive: "chat.channel.admin.receive"
+    range: -1
+    slowmode:
+      seconds: 0
+      bypass-permission: "chat.slowmode.bypass"
+    format: "<gray>[<red><channel></red>]</gray> <prefix><displayname><suffix><gray>: </gray><message>"
+
+hover:
+  normal:
+    lines:
+      - "<gray>Reputation: <white>%some_reputation_placeholder%</white>"
+      - "<gray>Rank: <white>%luckperms_prefix%</white>"
+      - "<gray>UUID: <white>{uuid}</white>"
+      - "<gray>Recent: <white>{recent_commands}</white>"
+  admin:
+    permission: "chat.hover.admin"
+    lines:
+      - "<red>IP: <white>%player_ip%</white>"
+      - "<red>First Join: <white>%player_first_join_time%</white>"
+      - "<red>Last Seen: <white>%player_last_seen_time%</white>"
+
+colors:
+  allow-hex: true
+  default: "<white>"
+
+recent-commands:
+  limit: 5
+
+miniMessage:
+  allow:
+    colors: true
+    decorations: true
+    reset: true
+    gradients: false
+  translate-legacy-ampersand: true
+
+messages:
+  slowmode-wait: "<yellow>Подождите <white>{seconds}</white> сек. перед отправкой в канал <white>{channel}</white>.</yellow>"
+  channel-switched: "<green>Активный канал: <white>{channel}</white></green>"
+  channel-list-header: "<gray>Доступные каналы:</gray>"
+
+  no-permission: "<red>У вас нет прав.</red>"
+  reloaded: "<green>Конфиг перезагружен.</green>"
+  color-set: "<green>Цвет сообщения установлен.</green>"
+  color-reset: "<green>Цвет сообщения сброшен.</green>"
+  invalid-color: "<red>Неверный цвет. Пример: <green>&2</green> или <green><#55ff55></green></red>"
+  nick-set: "<green>Ваш ник установлен: <white>{nick}</white></green>"
+  nick-reset: "<green>Ваш ник сброшен.</green>"
+  unknown-subcommand: "<red>Неизвестная подкоманда.</red>"
+
+  muted: "<yellow>Канал <white>{channel}</white> теперь <green>заглушён</green>.</yellow>"
+  unmuted: "<yellow>Канал <white>{channel}</white> теперь <red>разглушён</red>.</yellow>"
+  already-muted: "<gray>Канал уже в mute.</gray>"
+  not-muted: "<gray>Канал не был в mute.</gray>"
+  muted-list-empty: "<gray>Mute-список пуст.</gray>"
+
+  ignored: "<yellow>Вы игнорируете <white>{player}</white>.</yellow>"
+  unignored: "<yellow>Вы больше не игнорируете <white>{player}</white>.</yellow>"
+  already-ignored: "<gray>Этот игрок уже в ignore.</gray>"
+  not-ignored: "<gray>Этого игрока нет в ignore.</gray>"
+  ignore-list-empty: "<gray>Ignore-список пуст.</gray>"
+  player-not-found: "<red>Игрок не найден.</red>"
+  cannot-message-yourself: "<gray>Нельзя отправить сообщение самому себе.</gray>"
+  target-ignores-you: "<gray>Этот игрок игнорирует вас.</gray>"
+
+  spy-on: "<green>Social-Spy включён.</green>"
+  spy-off: "<yellow>Social-Spy выключен.</yellow>"
+  channel-set: "<green>Ваш канал по умолчанию: <white>{channel}</white></green>"
+  channel-invalid: "<red>Канал не найден.</red>"
+
+pm:
+  incoming-format: "<gray>[<green>PM</green> from <white><from></white>]</gray> <message>"
+  outgoing-format: "<gray>[<green>PM</green> to <white><to></white>]</gray> <message>"
+  spy-format: "<gray>[<red>SPY</red> <white><from></white> → <white><to></white>]</gray> <message>"
+
+logging:
+  enabled: true
+  chat-file: "logs/chat-{date}.log"
+  pm-file: "logs/pm-{date}.log"
+  date-format: "yyyy-MM-dd"
+  line-date-format: "HH:mm:ss"
+
+bridge:
+  enabled: false
+  includeWorld: true
+  includeDimension: true
+
+  discord:
+    enabled: false
+    token: "PUT_DISCORD_BOT_TOKEN"
+    guildId: "123456789012345678"
+    channelMap:
+      global: "123456789012345678"
+      local:  "234567890123456789"
+      admin:  "345678901234567890"
+    outboundFormat: "**[{channel}]** {player} ({world}): {message}"
+    inboundFormat: "<gray>[<blue>DISCORD</blue> <channel>]</gray> <white>{user}</white><gray>:</gray> <message>"
+
+  telegram:
+    enabled: false
+    token: "PUT_TELEGRAM_BOT_TOKEN"
+    chatMap:
+      global: -1001234567890
+      admin:  -1002345678901
+    outboundFormat: "[{channel}] {player} ({world}): {message}"
+    inboundFormat: "<gray>[<green>TELEGRAM</green> <channel>]</gray> <white>{user}</white><gray>:</gray> <message>"

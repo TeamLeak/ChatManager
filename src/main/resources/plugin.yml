@@ -1,0 +1,62 @@
+name: ChatManager
+version: '${version}'
+main: com.github.saintedlittle.MainActivity
+api-version: '1.21'
+authors: [ saintedlittle ]
+softdepend:
+  - LuckPerms
+  - PlaceholderAPI
+
+commands:
+  chat:
+    description: ChatManager main command
+    usage: /chat <color|reload|mute|unmute|mlist|ignore|unignore|ilist|spy [on|off|toggle]|channel <id>>
+    permission: chat.command
+  nick:
+    description: Set or reset your display name
+    usage: /nick <new name|reset>
+    permission: chat.nick
+  message:
+    description: Send a private message
+    usage: /message <player> <text>
+    aliases: [msg, m, tell, whisper, pm]
+    permission: chat.message
+  reply:
+    description: Reply to last private message sender/target
+    usage: /reply <text>
+    aliases: [r]
+    permission: chat.message
+  channel:
+    description: Quick switch active chat channel
+    usage: /channel [id|list]
+    permission: chat.channel
+  relay:
+    description: Toggle external chat relay
+    usage: /relay <on|off|toggle>
+    permission: chat.relay.self
+
+permissions:
+  chat.command: { default: true }
+  chat.reload:  { default: op }
+  chat.nick:    { default: true }
+
+  chat.color:   { default: true }
+  chat.color.hex: { default: op }
+
+  chat.message: { default: true }
+  chat.message.spy: { default: op } # social-spy toggle requires this
+
+  chat.channel.global.send:    { default: true }
+  chat.channel.global.receive: { default: true }
+  chat.channel.local.send:     { default: true }
+  chat.channel.local.receive:  { default: true }
+  chat.channel.admin.send:     { default: op }
+  chat.channel.admin.receive:  { default: op }
+
+  chat.hover.admin: { default: op }
+
+  chat.ignore.bypass: { default: op }
+  chat.channel: { default: true }
+  chat.slowmode.bypass: { default: op }
+  chat.relay.self:
+    default: true
